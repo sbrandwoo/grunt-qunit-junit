@@ -2,6 +2,8 @@
 
 > JUnit compatible XML reporter for QUnit
 
+**WARNING**: This plugin is currently dependant on a branch of `grunt-contrib-junit`. This will be cleaned up in the near future, when more testing has been completed. [See the branch](https://github.com/sbrandwoo/grunt-contrib-qunit/tree/fail-events) for the changes.
+
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
 
