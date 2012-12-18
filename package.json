@@ -32,6 +32,7 @@
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-clean": "~0.4.0a",
     "grunt-contrib-nodeunit": "~0.1.0",
+    "grunt-contrib-qunit": "git+https://github.com/sbrandwoo/grunt-contrib-qunit.git#fail-events",
     "grunt": "~0.4.0rc1"
   },
   "keywords": [
