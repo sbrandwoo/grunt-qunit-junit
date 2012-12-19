@@ -2,7 +2,7 @@
 
 > JUnit compatible XML reporter for QUnit
 
-**WARNING**: This plugin is currently dependant on a branch of `grunt-contrib-junit`. This will be cleaned up in the near future, when more testing has been completed. [See the branch](https://github.com/sbrandwoo/grunt-contrib-qunit/tree/fail-events) for the changes.
+**WARNING**: This plugin is currently dependant on a branch of `grunt-contrib-qunit`. This will be cleaned up in the near future, when more testing has been completed. [See the branch](https://github.com/sbrandwoo/grunt-contrib-qunit/tree/fail-events) for the changes.
 
 This plugin produces XML reports for all QUnit tests that you run with grunt. The XML reports match those created by JUnit and are perfect for loading into Jenkins.
 
