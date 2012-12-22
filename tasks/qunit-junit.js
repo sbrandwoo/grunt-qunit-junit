@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                 ['qunit.done', this.handleDone],
                 ['qunit.fail.timeout', this.handleTimeout]
             ], function (a) {
-                grunt.log.ok('Attaching ' + a[0]);
+                // Bind events to the local method (_.bind sets `this`)
                 emitter.on(a[0], _.bind(a[1], this));
             }, this);
         },
@@ -55,13 +55,8 @@ module.exports = function (grunt) {
         },
 
         handleSpawn: function (url) {
-            grunt.log.ok("Hitting url " + url);
-            var match = url.match(/test=(.*)$/);
-            if (match) {
-                this.filename = match[1].replace(/\//g, '.');
-            } else {
-                this.filename = "unknown";
-            }
+            this.classname = this.options.namer.call(null, url);
+            this.filename = 'TEST-' + this.classname + '.xml';
         },
 
         handleBegin: function () {
@@ -134,8 +129,7 @@ module.exports = function (grunt) {
         handleDone: function (failed, passed, total, runtime) {
 
             var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>\n',
-                filePath = path.join(this.options.dest,
-                        '/TEST-' + this.filename + '.xml');
+                filePath = path.join(this.options.dest, this.filename);
 
             if (this.tests.length) {
                 // Must have been no modules
@@ -144,13 +138,13 @@ module.exports = function (grunt) {
 
             _.each(this.modules, function (module) {
                 xml += '\t<testsuite'
-                    + ' name="' + this.escape(this.filename) + '"'
+                    + ' name="' + this.escape(this.classname) + '"'
                     + ' errors="' + module.errored + '"'
                     + ' failures="' + module.failed + '"'
                     + ' tests="' + module.tests.length + '">\n';
                 _.each(module.tests, function (test) {
                     xml += '\t\t<testcase'
-                        + ' classname="' + this.escape(this.filename) + '"'
+                        + ' classname="' + this.escape(this.classname) + '"'
                         + ' name="' + this.escape(module.name + ": " + test.name) + '"'
                         + ' assertions="' + test.total + '">\n';
                     _.each(test.logs, function (data) {
@@ -167,27 +161,26 @@ module.exports = function (grunt) {
             }, this);
             xml += "</testsuites>\n";
 
-            // grunt.log.ok(xml);
-            grunt.log.ok("Writing to " + filePath);
+            grunt.log.ok("Writing results to " + filePath);
             grunt.file.write(filePath, xml);
 
             this.filename = null;
+            this.classname = null;
             this.modules = [];
         },
 
         handleTimeout: function () {
 
             var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>\n',
-                filePath = path.join(this.options.dest,
-                        '/TEST-' + this.filename + '.xml');
+                filePath = path.join(this.options.dest, this.filename);
 
             xml += '\t<testsuite'
-                + ' name="' + this.escape(this.filename) + '"'
+                + ' name="' + this.escape(this.classname) + '"'
                 + ' errors="1"'
                 + ' failures="0"'
                 + ' tests="1">\n';
             xml += '\t\t<testcase'
-                + ' classname="' + this.escape(this.filename) + '"'
+                + ' classname="' + this.escape(this.classname) + '"'
                 + ' name="main"'
                 + ' assertions="1">\n';
             xml += '\t\t\t<error type="timeout" message="Test timed out, '
@@ -196,8 +189,7 @@ module.exports = function (grunt) {
             xml += "\t</testsuite>\n";
             xml += "</testsuites>\n";
 
-            // grunt.log.ok(xml);
-            grunt.log.ok("Writing to " + filePath);
+            grunt.log.ok("Writing timeout report to " + filePath);
             grunt.file.write(filePath, xml);
         }
     });
@@ -205,9 +197,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask('qunit_junit',
             'Log JUnit style XML reports for QUnit tests', function () {
-        var reporter = new XmlReporter(this.options({
-                dest: '_build/test-reports'
-            }));
+        var options = this.options({
+                dest: '_build/test-reports',
+                namer: function (url) {
+                    return path.basename(url).replace(/\.html$/, '');
+                }
+            }),
+            reporter = new XmlReporter(options);
         reporter.attach(grunt.event);
+        grunt.log.ok("XML reports will be written to " + options.dest);
     });
 };

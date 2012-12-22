@@ -1,7 +1,7 @@
 {
   "name": "grunt-qunit-junit",
   "description": "Produce JUnit XML reports for QUnit tests",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha",
   "homepage": "https://github.com/sbrandwoo/grunt-qunit-junit",
   "author": {
     "name": "Stephen Brandwood",
@@ -28,17 +28,17 @@
   "scripts": {
     "test": "grunt test"
   },
+  "dependencies": {
+    "underscore": "~1.4.3",
+    "grunt-contrib-qunit": "git+https://github.com/sbrandwoo/grunt-contrib-qunit.git#fail-events"
+  },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-clean": "~0.4.0a",
     "grunt-contrib-nodeunit": "~0.1.0",
-    "grunt-contrib-qunit": "git+https://github.com/sbrandwoo/grunt-contrib-qunit.git#fail-events",
     "grunt": "~0.4.0rc1"
   },
   "keywords": [
     "gruntplugin"
-  ],
-  "dependencies": {
-    "underscore": "~1.4.3"
-  }
+  ]
 }
