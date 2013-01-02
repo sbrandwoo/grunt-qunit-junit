@@ -63,7 +63,11 @@ module.exports = function (grunt) {
         },
 
         handleModuleStart: function (name) {
-            this.tests = [];
+            if (this.tests.length) {
+                // TODO: Investigate the various routes to this spot,
+                // and how we can create correct counts
+                this.handleModuleDone("global", 1, 1, 1);
+            }
         },
 
         handleTestStart: function (name) {
