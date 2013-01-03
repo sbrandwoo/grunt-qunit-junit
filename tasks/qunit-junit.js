@@ -165,7 +165,7 @@ module.exports = function (grunt) {
             }, this);
             xml += "</testsuites>\n";
 
-            grunt.log.ok("Writing results to " + filePath);
+            grunt.log.debug("Writing results to " + filePath);
             grunt.file.write(filePath, xml);
 
             this.filename = null;
@@ -193,7 +193,7 @@ module.exports = function (grunt) {
             xml += "\t</testsuite>\n";
             xml += "</testsuites>\n";
 
-            grunt.log.ok("Writing timeout report to " + filePath);
+            grunt.log.debug("Writing timeout report to " + filePath);
             grunt.file.write(filePath, xml);
         }
     });
