@@ -82,7 +82,7 @@ module.exports = function (grunt) {
             if (this.tests.length) {
                 // TODO: Investigate the various routes to this spot,
                 // and how we can create correct counts
-                this.handleModuleDone("global", 1, 1, 1);
+                this.handleModuleDone("global", 7, 17, 27);
             }
         },
 

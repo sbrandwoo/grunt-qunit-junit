@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="ModuleFree" errors="0" failures="0" tests="1">
+		<testcase classname="ModuleFree" name="main: a basic test example" assertions="1">
+		</testcase>
+	</testsuite>
+</testsuites>

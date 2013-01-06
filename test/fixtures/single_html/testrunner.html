@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>QUnit basic example</title>
+    <link rel="stylesheet" href="../vendor/qunit-1.10.0.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="../vendor/qunit-1.10.0.js"></script>
+    <script id="target"></script>
+
+    <script>
+        var raw = window.location.search.replace('%2F', '/'),
+            match = raw.match('test=([A-Za-z0-9\-\/]+)'),
+            path = '../common/' + match[1] + '.js';
+        document.getElementById('target').setAttribute('src', path);
+    </script>
+</body>
+</html>

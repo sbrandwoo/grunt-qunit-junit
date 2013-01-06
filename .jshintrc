@@ -1,6 +1,6 @@
 {
     "bitwise": true,
-    "camelcase": true,
+    "camelcase": false,
     "curly": true,
     "eqeqeq": true,
     "forin": true,
@@ -10,7 +10,7 @@
     "newcap": true,
     "noarg": true,
     "nonew": true,
-    "regexp": true,
+    "regexp": false,
     "undef": true,
     "strict": false,
     "maxparams": 5,

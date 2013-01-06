@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="Mixed" errors="0" failures="1" tests="2">
+		<testcase classname="Mixed" name="Module 19: a basic test example" assertions="1">
+		</testcase>
+		<testcase classname="Mixed" name="Module 19: a failing test example" assertions="1">
+			<failure type="failed" message="We expect to fail">
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

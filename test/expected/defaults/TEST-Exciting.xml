@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="Exciting" errors="0" failures="7" tests="2">
+		<testcase classname="Exciting" name="global: a failing test example" assertions="1">
+			<failure type="failed" message="We expect to fail">
+			</failure>
+		</testcase>
+		<testcase classname="Exciting" name="global: global failure" assertions="1">
+			<failure type="failed" message="ReferenceError: Can't find variable: y">
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite name="Exciting" errors="0" failures="1" tests="3">
+		<testcase classname="Exciting" name="Module 19: A failing test that checks XML encoding" assertions="1">
+			<failure type="failed" message="A quote: &quot;We expect to fail&quot;">
+			</failure>
+		</testcase>
+		<testcase classname="Exciting" name="Module 19: a basic test example" assertions="1">
+		</testcase>
+		<testcase classname="Exciting" name="Module 19: another basic test example" assertions="1">
+		</testcase>
+	</testsuite>
+	<testsuite name="Exciting" errors="1" failures="0" tests="1">
+		<testcase classname="Exciting" name="Module 20: A failing test that should stack track" assertions="1">
+			<error type="failed" message="Died on test #1: Can't find variable: y">
+	at LOCALPATH/test/fixtures/vendor/qunit-1.10.0.js:343
+    at LOCALPATH/test/fixtures/common/exciting.js:3
+			</error>
+		</testcase>
+	</testsuite>
+</testsuites>

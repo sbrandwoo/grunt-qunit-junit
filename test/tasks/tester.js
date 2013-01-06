@@ -1,0 +1,196 @@
+/*
+ * grunt-qunit-junit test harness
+ * https://github.com/sbrandwoo/grunt-qunit-junit
+ *
+ * Copyright (c) 2013 Stephen Brandwood
+ * Licensed under the MIT license.
+ */
+
+'use strict';
+
+module.exports = function (grunt) {
+
+    var _ = require('underscore'),
+        fs = require('fs'),
+        path = require('path'),
+
+        setupSuite,
+        teardownSuite,
+
+        suites = {
+            defaults: {
+                options: undefined,
+                files: ['test/fixtures/many_html/**/*.html'],
+
+                actual: '_build/test-reports',
+                expected: 'test/expected/defaults'
+            },
+            custom_dest: {
+                options: {
+                    dest: '_build/custom_dest'
+                },
+                files: ['test/fixtures/many_html/**/*.html'],
+
+                actual: '_build/custom_dest',
+                expected: 'test/expected/defaults'
+            },
+            custom_namer: {
+                options: {
+                    dest: '_build/custom_namer',
+                    namer: function (url) {
+                        var match = url.match(/fixtures\/many_html\/(.*).html$/);
+                        return match[1].replace(/\//g, '.');
+                    }
+                },
+                files: ['test/fixtures/many_html/**/*.html'],
+
+                actual: '_build/custom_namer',
+                expected: 'test/expected/custom_namer'
+            },
+            single_html: {
+                options: {
+                    dest: '_build/single_html',
+                    namer: function (url) {
+                        var match = url.match(/test=(.*)$/);
+                        return match[1].replace(/\//g, '.');
+                    }
+                },
+                files: _.map(['success', 'empty', 'mixed'], function (x) {
+                    return 'http://localhost:8017/fixtures/single_html/'
+                            + 'testrunner.html?test=' + x;
+                }),
+
+                actual: '_build/single_html',
+                expected: 'test/expected/single_html'
+            }
+        };
+
+    /**
+     * Setup the config for running a test suite.
+     * @param  {string} name     name of suite
+     * @param  {object} settings settings for suite
+     */
+    setupSuite = function (name, settings) {
+        grunt.log.ok("Performing setup for " + name);
+        grunt.config('qunit_junit.options', settings.options);
+        grunt.config.set('qunit.all', {
+            src: settings.files,
+            options: {
+                stopOnFailure: false
+            }
+        });
+    };
+
+    /**
+     * Check the results of a suite after testing.
+     * @param  {string} name     name of suite
+     * @param  {object} settings settings for suite
+     * @param  {array} errors    array to add error messages to
+     */
+    teardownSuite = function (name, settings, errors) {
+        grunt.log.ok("Performing teardown for " + name);
+        var actualDir = settings.actual,
+            expectedDir = settings.expected,
+            expectedFiles = [];
+
+        // Check for the expected
+        grunt.file.recurse(expectedDir,
+                function (abspath, rootdir, subdir, filename) {
+            var actualPath = path.join(actualDir, subdir, filename),
+                exists = fs.existsSync(actualPath);
+            expectedFiles.push(actualPath);
+
+            if (!exists) {
+                errors.push('Expected file "' + filename
+                    + '" does not exist at "' + actualPath + '"');
+                return;
+            }
+
+            var actual = grunt.file.read(actualPath),
+                expected = grunt.file.read(abspath);
+
+            // We need to account for local paths in stack traces
+            actual = actual.replace(/at (.*)\/test\/fixtures\//g,
+                    "at LOCALPATH/test/fixtures/");
+
+            if (actual !== expected) {
+                errors.push("Contents of " + filename
+                    + " did not match. Expected:\n" + expected
+                    + "\nFound:\n" + actual);
+                return;
+            }
+
+            grunt.log.ok(actualPath + " was as expected");
+        });
+
+        // Check for the unexpected
+        grunt.file.recurse(actualDir,
+                function (abspath, rootdir, subdir, filename) {
+            var actualPath = path.join(actualDir, subdir, filename);
+            if (expectedFiles.indexOf(actualPath) < 0) {
+                errors.push('Found unexpected file "'
+                    + actualPath + '"');
+                return;
+            }
+        });
+    };
+
+    /**
+     * A very simple task that provides a test harness. This takes the
+     * configuration of a task as a function and executes it.
+     * Don't call this directly.
+     */
+    grunt.registerMultiTask('harness', 'Test harness', function () {
+        this.data();
+    });
+
+    /**
+     * The top-level task to be run in order to run the test harness.
+     *
+     * For each suite, configurations of the harness task are built and added
+     * to the run queue. These will setup, run and teardown each suite in turn.
+     * Then, the results task is run to report what happened.
+     */
+    grunt.registerTask('test', 'Test stuff', function () {
+        var errors = {};
+
+        // Start up the server that hosts some of the suites
+        grunt.task.run('connect:test');
+
+        // Configure the tasks for each test suite
+        _.each(suites, function (settings, name) {
+            grunt.log.ok("Running test suite: " + name);
+            errors[name] = [];
+
+            grunt.config('harness.setup_' + name,
+                    _.bind(setupSuite, null, name, settings));
+            grunt.config('harness.teardown_' + name,
+                    _.bind(teardownSuite, null, name, settings, errors[name]));
+
+            grunt.task.run('harness:setup_' + name, 'qunit_junit', 'qunit:all',
+                'harness:teardown_' + name);
+        });
+
+        // Configure the summary task
+        grunt.config('harness.results', function () {
+            var success = true;
+            grunt.log.writeln("Test results");
+            _.each(suites, function (settings, name) {
+                if (errors[name].length === 0) {
+                    grunt.log.ok(name + ': Success');
+                } else {
+                    grunt.log.error(name + ': Failed!');
+                    success = false;
+                    _.each(errors[name], function (message) {
+                        grunt.log.writeln(message);
+                    });
+                }
+            });
+            if (!success) {
+                grunt.warn("Failed :(");
+            }
+        });
+        grunt.task.run('harness:results');
+    });
+
+};
