@@ -13,7 +13,8 @@ module.exports = function (grunt) {
     var _ = require('underscore'),
         path = require('path'),
 
-        XmlReporter;
+        XmlReporter,
+        current;
 
     XmlReporter = function (options) {
         this.options = options;
@@ -23,6 +24,22 @@ module.exports = function (grunt) {
         this.tests = [];
         this.currentLogs = [];
         this.currentErrors = 0;
+
+        // Event binding targets with correct `this` context
+        this.bindTargets = _.map([
+            ['qunit.spawn', this.handleSpawn],
+            ['qunit.begin', this.handleBegin],
+            ['qunit.moduleStart', this.handleModuleStart],
+            ['qunit.testStart', this.handleTestStart],
+            ['qunit.log', this.handleLog],
+            ['qunit.testDone', this.handleTestDone],
+            ['qunit.moduleDone', this.handleModuleDone],
+            ['qunit.done', this.handleDone],
+            ['qunit.fail.timeout', this.handleTimeout]
+        ], function (a) {
+            // Use _.bind to add the `this` context to the event callback
+            return [a[0], _.bind(a[1], this)];
+        }, this);
     };
     _.extend(XmlReporter.prototype, {
 
@@ -31,20 +48,19 @@ module.exports = function (grunt) {
          * @param  {EventEmitter} emitter  emitter of the qunit events
          */
         attach: function (emitter) {
-            _.each([
-                ['qunit.spawn', this.handleSpawn],
-                ['qunit.begin', this.handleBegin],
-                ['qunit.moduleStart', this.handleModuleStart],
-                ['qunit.testStart', this.handleTestStart],
-                ['qunit.log', this.handleLog],
-                ['qunit.testDone', this.handleTestDone],
-                ['qunit.moduleDone', this.handleModuleDone],
-                ['qunit.done', this.handleDone],
-                ['qunit.fail.timeout', this.handleTimeout]
-            ], function (a) {
-                // Bind events to the local method (_.bind sets `this`)
-                emitter.on(a[0], _.bind(a[1], this));
-            }, this);
+            _.each(this.bindTargets, function (a) {
+                emitter.on(a[0], a[1]);
+            });
+        },
+
+        /**
+         * Remove any existing attached event listeners.
+         * @param  {EventEmitter} emitter  emitter of the qunit events
+         */
+        detach: function (emitter) {
+            _.each(this.bindTargets, function (a) {
+                emitter.off(a[0], a[1]);
+            });
         },
 
         escape: function (value) {
@@ -206,9 +222,14 @@ module.exports = function (grunt) {
                 namer: function (url) {
                     return path.basename(url).replace(/\.html$/, '');
                 }
-            }),
-            reporter = new XmlReporter(options);
-        reporter.attach(grunt.event);
+            });
+
+        if (current) {
+            grunt.log.ok("Detaching existing reporter");
+            current.detach(grunt.event);
+        }
+        current = new XmlReporter(options);
+        current.attach(grunt.event);
         grunt.log.ok("XML reports will be written to " + options.dest);
     });
 };

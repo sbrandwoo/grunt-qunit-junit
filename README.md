@@ -89,6 +89,8 @@ Typically, you'll use it as part of a list of commands like this:
 grunt.registerTask('test', ['connect:server', 'qunit_junit', 'qunit']);
 ```
 
+If you call the `qunit_junit` task again, then the existing reporter will be detached and the new one will report in its place.
+
 ## Example reports
 
 The following report is an example of a test class that was composed of 3 tests, one of which had a failure. The `classname` attribute is built from the path and name of the test file, and the QUnit module names are added to the `name` attribute.
