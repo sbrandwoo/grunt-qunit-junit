@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                         return match[1].replace(/\//g, '.');
                     }
                 },
-                files: _.map(['success', 'empty', 'mixed'], function (x) {
+                urls: _.map(['success', 'empty', 'mixed'], function (x) {
                     return 'http://localhost:8017/fixtures/single_html/'
                             + 'testrunner.html?test=' + x;
                 }),
@@ -71,14 +71,21 @@ module.exports = function (grunt) {
      * @param  {object} settings settings for suite
      */
     setupSuite = function (name, settings) {
+        var qunitConfig = {
+                options: {
+                    url: settings.urls,
+                    stopOnFailure: false
+                }
+            };
+        if (settings.files) {
+            qunitConfig.src = settings.files;
+        }
+        if (settings.urls) {
+            qunitConfig.options.urls = settings.urls;
+        }
         grunt.log.ok("Performing setup for " + name);
         grunt.config('qunit_junit.options', settings.options);
-        grunt.config.set('qunit.all', {
-            src: settings.files,
-            options: {
-                stopOnFailure: false
-            }
-        });
+        grunt.config.set('qunit.all', qunitConfig);
     };
 
     /**
@@ -96,7 +103,7 @@ module.exports = function (grunt) {
         // Check for the expected
         grunt.file.recurse(expectedDir,
                 function (abspath, rootdir, subdir, filename) {
-            var actualPath = path.join(actualDir, subdir, filename),
+            var actualPath = path.join(actualDir, subdir || "", filename),
                 exists = fs.existsSync(actualPath);
             expectedFiles.push(actualPath);
 
@@ -126,7 +133,7 @@ module.exports = function (grunt) {
         // Check for the unexpected
         grunt.file.recurse(actualDir,
                 function (abspath, rootdir, subdir, filename) {
-            var actualPath = path.join(actualDir, subdir, filename);
+            var actualPath = path.join(actualDir, subdir || "", filename);
             if (expectedFiles.indexOf(actualPath) < 0) {
                 errors.push('Found unexpected file "'
                     + actualPath + '"');
