@@ -152,3 +152,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * 0.1.0-alpha is available for testing purposes.
+* 0.1.0-alpha2 is updated for using with grunt 0.4.0, but still dependent on a custom branch of grunt-contrib-qunit.
