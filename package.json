@@ -36,7 +36,7 @@
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-clean": "~0.4.0a",
     "grunt-contrib-connect": "~0.1.0",
-    "grunt-contrib-qunit": "git+https://github.com/sbrandwoo/grunt-contrib-qunit.git#do-not-exit-on-fail"
+    "grunt-contrib-qunit": "git+https://github.com/sbrandwoo/grunt-contrib-qunit.git#add-force-option"
   },
   "keywords": [
     "gruntplugin"

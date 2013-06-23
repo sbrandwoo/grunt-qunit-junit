@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         var qunitConfig = {
                 options: {
                     url: settings.urls,
-                    stopOnFailure: false
+                    force: true
                 }
             };
         if (settings.files) {
