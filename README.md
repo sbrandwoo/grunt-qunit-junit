@@ -81,7 +81,7 @@ qunit_junit: {
 
 ### Usage Examples
 
-To trigger the XML reporting, simply call the `qunit_junit` task before you call the `qunit` task. A report will be created for all tests run by QUnit.
+To trigger the XML reporting, simply call the `qunit_junit` task **before** you call the `qunit` task. A report will be created for all tests run by QUnit.
 
 Typically, you'll use it as part of a list of commands like this:
 
