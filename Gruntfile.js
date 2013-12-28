@@ -22,7 +22,6 @@ module.exports = function (grunt) {
         path = require('path'),
         fs = require('fs');
 
-    // Project configuration.
     grunt.initConfig({
         jshint: {
             all: [

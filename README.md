@@ -105,7 +105,7 @@ The following report is an example of a test class that was composed of 3 tests,
     </testcase>
     <testcase classname="example.package.TestClass" name="My module: Third test" assertions="2">
       <error type="failed" message="Died on test #1: Can't find variable: other">
-  at http://localhost:8000/vendor/qunit-1.10.0.js:343
+  at http://localhost:8000/vendor/qunit-1.12.0.js:343
     at http://localhost:8000/test/example/package/TestClass.test.js:29
     at http://localhost:8000/vendor/require-2.0.6.js:32
     at http://localhost:8000/vendor/require-2.0.6.js:21

@@ -80,9 +80,8 @@ module.exports = function (grunt) {
 
         handleModuleStart: function (name) {
             if (this.tests.length) {
-                // TODO: Investigate the various routes to this spot,
-                // and how we can create correct counts
-                this.handleModuleDone("global", 7, 17, 27);
+                // TODO: Investigate the various routes to this spot
+                grunt.log.error("Unexpected handleModuleStart when we had tests already recorded");
             }
         },
 
@@ -165,7 +164,8 @@ module.exports = function (grunt) {
                 _.each(module.tests, function (test) {
                     xml += '\t\t<testcase'
                         + ' classname="' + this.escape(this.classname) + '"'
-                        + ' name="' + this.escape(module.name + ": " + test.name) + '"'
+                        + ' name="' + this.escape(
+                            (module.name ? (module.name + ": ") : "") + test.name) + '"'
                         + ' assertions="' + test.total + '">\n';
                     _.each(test.logs, function (data) {
                         xml += '\t\t\t<' + data.type + ' type="failed" message="'

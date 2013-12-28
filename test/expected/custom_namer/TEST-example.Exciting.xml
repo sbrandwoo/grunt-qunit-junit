@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="example.Exciting" errors="0" failures="7" tests="2">
-		<testcase classname="example.Exciting" name="global: a failing test example" assertions="1">
+	<testsuite name="example.Exciting" errors="0" failures="2" tests="2">
+		<testcase classname="example.Exciting" name="a failing test example" assertions="1">
 			<failure type="failed" message="We expect to fail">
 			</failure>
 		</testcase>
-		<testcase classname="example.Exciting" name="global: global failure" assertions="1">
+		<testcase classname="example.Exciting" name="global failure" assertions="1">
 			<failure type="failed" message="ReferenceError: Can't find variable: y">
 			</failure>
 		</testcase>
@@ -23,7 +23,7 @@
 	<testsuite name="example.Exciting" errors="1" failures="0" tests="1">
 		<testcase classname="example.Exciting" name="Module 20: A failing test that should stack track" assertions="1">
 			<error type="failed" message="Died on test #1: Can't find variable: y">
-	at LOCALPATH/test/fixtures/vendor/qunit-1.10.0.js:343
+	at LOCALPATH/test/fixtures/vendor/qunit-1.12.0.js:425
     at LOCALPATH/test/fixtures/common/exciting.js:3
 			</error>
 		</testcase>
