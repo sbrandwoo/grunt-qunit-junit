@@ -90,18 +90,21 @@ module.exports = function (grunt) {
             this.currentErrors = 0;
         },
 
-        handleLog: function (result, actual, expected, message, source) {
+        handleLog: function (result, actual, expected, rawMessage, source) {
             var match,
+                message = rawMessage || "Test failed",
                 stack = null,
                 type = "failure";
             if (!result) {
-                // Detect script errors and parse out the meaningful bits
-                match = message.match(/(Died on test #[0-9]+)[\ \t]+([\s\S]*)[0-9]+:\ (.*)/);
-                if (match) {
-                    message = match[1] + ": " + match[3];
-                    stack = match[2];
-                    type = "error";
-                    this.currentErrors += 1;
+                if (rawMessage) {
+                    // Detect script errors and parse out the meaningful bits
+                    match = rawMessage.match(/(Died on test #[0-9]+)[\ \t]+([\s\S]*)[0-9]+:\ (.*)/);
+                    if (match) {
+                        message = match[1] + ": " + match[3];
+                        stack = match[2];
+                        type = "error";
+                        this.currentErrors += 1;
+                    }
                 }
                 this.currentLogs.push({
                     actual: actual,

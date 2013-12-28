@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="example.Mixed" errors="0" failures="1" tests="2">
+	<testsuite name="example.Mixed" errors="0" failures="2" tests="3">
 		<testcase classname="example.Mixed" name="Module 19: a basic test example" assertions="1">
 		</testcase>
 		<testcase classname="example.Mixed" name="Module 19: a failing test example" assertions="1">
 			<failure type="failed" message="We expect to fail">
+			</failure>
+		</testcase>
+		<testcase classname="example.Mixed" name="Module 19: another failing test example" assertions="1">
+			<failure type="failed" message="Test failed">
 			</failure>
 		</testcase>
 	</testsuite>

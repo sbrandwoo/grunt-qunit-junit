@@ -10,3 +10,8 @@ test("a failing test example", function() {
     var value = "hello";
     equal(value, "world", "We expect to fail");
 });
+
+test("another failing test example", function () {
+    var value = "hello";
+    equal(value, "world");
+});
