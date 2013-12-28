@@ -10,11 +10,9 @@ This plugin only works with grunt 0.4.x. If you are using 0.3.x, then I recommen
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
 
+**WARNING**: This plugin is only released in beta form! It should work pretty well though, so please give it a go and pass any issues you find back to me. I'd also be interested to hear how you use QUnit in you project and if there are any helpful features I can add to this plugin.
+
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
-
-**WARNING**: This plugin is only released in alpha form! Please give it a go and pass any issues you find back to me. I'd also be interested to hear how you use QUnit in you project and if there are any helpful features I can add to this plugin.
-
-**WARNING**: This plugin is currently dependant on a branch of `grunt-contrib-junit`. This will be cleaned up in the near future, when more testing has been completed. [See the branch](https://github.com/sbrandwoo/grunt-contrib-qunit/tree/fail-events) for the changes.
 
 ```bash
 npm install grunt-qunit-junit --save-dev
@@ -66,7 +64,7 @@ The resulting values should represent full classpaths as you might see in Java, 
 
 The default implementation takes the final part of the URL and strips `.html` from it. If you have nested folder structures then I suggest you override this option.
 
-For example if you have test URLs of the form `http://localhost:8000/test/runner.html?test=example/Adder`, then you could use the following:
+For example, if you have test URLs of the form `http://localhost:8000/test/runner.html?test=example/Adder`, then you could use the following:
 
 ```js
 qunit_junit: {
@@ -105,27 +103,8 @@ The following report is an example of a test class that was composed of 3 tests,
     </testcase>
     <testcase classname="example.package.TestClass" name="My module: Third test" assertions="2">
       <error type="failed" message="Died on test #1: Can't find variable: other">
-  at http://localhost:8000/vendor/qunit-1.12.0.js:343
+    at http://localhost:8000/vendor/qunit-1.12.0.js:425
     at http://localhost:8000/test/example/package/TestClass.test.js:29
-    at http://localhost:8000/vendor/require-2.0.6.js:32
-    at http://localhost:8000/vendor/require-2.0.6.js:21
-    at http://localhost:8000/vendor/require-2.0.6.js:25
-    at http://localhost:8000/vendor/require-2.0.6.js:7
-    at http://localhost:8000/vendor/require-2.0.6.js:26
-    at o (http://localhost:8000/vendor/require-2.0.6.js:7)
-    at http://localhost:8000/vendor/require-2.0.6.js:26
-    at http://localhost:8000/vendor/require-2.0.6.js:22
-    at http://localhost:8000/vendor/require-2.0.6.js:25
-    at http://localhost:8000/vendor/require-2.0.6.js:7
-    at http://localhost:8000/vendor/require-2.0.6.js:26
-    at o (http://localhost:8000/vendor/require-2.0.6.js:7)
-    at http://localhost:8000/vendor/require-2.0.6.js:26
-    at http://localhost:8000/vendor/require-2.0.6.js:22
-    at http://localhost:8000/vendor/require-2.0.6.js:26
-    at http://localhost:8000/vendor/require-2.0.6.js:19
-    at W (http://localhost:8000/vendor/require-2.0.6.js:17)
-    at http://localhost:8000/vendor/require-2.0.6.js:30
-    at http://localhost:8000/vendor/require-2.0.6.js:3
       </error>
       <failure type="failed" message="Expected 2 assertions, but 1 were run">
       </failure>
@@ -151,5 +130,5 @@ Additionally, if a test run fails completely a report of the following form will
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][].
 
 ## Release History
-* 0.1.0-alpha is available for testing purposes.
-* 0.1.0-alpha2 is updated for using with grunt 0.4.0, but still dependent on a custom branch of grunt-contrib-qunit.
+
+* 0.1.0 is available for general use.
