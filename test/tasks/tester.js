@@ -13,6 +13,7 @@ module.exports = function (grunt) {
     var _ = require('underscore'),
         fs = require('fs'),
         path = require('path'),
+        JsDiff = require('diff'),
 
         setupSuite,
         teardownSuite,
@@ -121,9 +122,18 @@ module.exports = function (grunt) {
                     "at LOCALPATH/test/fixtures/");
 
             if (actual !== expected) {
-                errors.push("Contents of " + filename
-                    + " did not match. Expected:\n" + expected
-                    + "\nFound:\n" + actual);
+                var diff = JsDiff.diffLines(expected, actual),
+                    s = "Contents of " + filename + " did not match. Diffs:\n";
+                diff.forEach(function (part, i) {
+                    if (part.removed) {
+                        s += part.value.red;
+                    } else if (part.added) {
+                        s += part.value.green;
+                    } else {
+                        s += part.value;
+                    }
+                });
+                errors.push(s);
                 return;
             }
 
