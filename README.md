@@ -24,7 +24,7 @@ Once that's done, add this line to your project's Gruntfile:
 grunt.loadNpmTasks('grunt-qunit-junit');
 ```
 
-If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task, `qunit_jnit`. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
+If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task, `qunit_junit`. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
 
 [grunt]: http://gruntjs.com/
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
