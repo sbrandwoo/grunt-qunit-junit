@@ -111,6 +111,7 @@ module.exports = function (grunt) {
                     expected: expected,
                     message: message,
                     stack: stack,
+                    source:source,
                     type: type
                 });
             }
@@ -163,17 +164,19 @@ module.exports = function (grunt) {
                     + ' name="' + this.escape(this.classname) + '"'
                     + ' errors="' + module.errored + '"'
                     + ' failures="' + module.failed + '"'
-                    + ' tests="' + module.tests.length + '">\n';
+                    + ' tests="' + module.tests.length + '" time="0.01">\n';
                 _.each(module.tests, function (test) {
                     xml += '\t\t<testcase'
                         + ' classname="' + this.escape(this.classname) + '"'
                         + ' name="' + this.escape(
                             (module.name ? (module.name + ": ") : "") + test.name) + '"'
-                        + ' assertions="' + test.total + '">\n';
+                        + ' assertions="' + test.total + '"  time="0.01">\n';
                     _.each(test.logs, function (data) {
                         xml += '\t\t\t<' + data.type + ' type="failed" message="'
                                 + this.escape(data.message) + '">\n';
-                        if (data.stack) {
+                        if(data.source){
+							xml += '\t' + this.escape(data.source) + '\n';
+						}else if (data.stack) {
                             xml += '\t' + this.escape(data.stack) + '\n';
                         }
                         xml += '\t\t\t</' + data.type + '>\n';
