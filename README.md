@@ -132,3 +132,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 
 * 0.1.0 is available for general use.
+* 0.1.1 added time attribute to output with dummy value, to aid compatibility

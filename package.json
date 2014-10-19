@@ -1,7 +1,7 @@
 {
   "name": "grunt-qunit-junit",
   "description": "Produce JUnit XML reports for QUnit tests",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/sbrandwoo/grunt-qunit-junit",
   "author": {
     "name": "Stephen Brandwood",
