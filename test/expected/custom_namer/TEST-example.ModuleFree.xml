@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="example.ModuleFree" errors="0" failures="0" tests="1">
-		<testcase classname="example.ModuleFree" name="main: a basic test example" assertions="1">
+	<testsuite name="example.ModuleFree" errors="0" failures="0" tests="1" time="0.01">
+		<testcase classname="example.ModuleFree" name="main: a basic test example" assertions="1" time="0.01">
 		</testcase>
 	</testsuite>
 </testsuites>

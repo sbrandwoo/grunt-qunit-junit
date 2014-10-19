@@ -117,9 +117,8 @@ module.exports = function (grunt) {
             var actual = grunt.file.read(actualPath),
                 expected = grunt.file.read(abspath);
 
-            // We need to account for local paths in stack traces
-            actual = actual.replace(/at (.*)\/test\/fixtures\//g,
-                    "at LOCALPATH/test/fixtures/");
+            // Remove parts of the stack traces that contain system specific paths
+            actual = actual.replace(/[\t ]+(at |file).*\n/g, '');
 
             if (actual !== expected) {
                 var diff = JsDiff.diffLines(expected, actual),

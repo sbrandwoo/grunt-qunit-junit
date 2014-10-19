@@ -170,15 +170,15 @@ module.exports = function (grunt) {
                         + ' classname="' + this.escape(this.classname) + '"'
                         + ' name="' + this.escape(
                             (module.name ? (module.name + ": ") : "") + test.name) + '"'
-                        + ' assertions="' + test.total + '"  time="0.01">\n';
+                        + ' assertions="' + test.total + '" time="0.01">\n';
                     _.each(test.logs, function (data) {
                         xml += '\t\t\t<' + data.type + ' type="failed" message="'
                                 + this.escape(data.message) + '">\n';
                         if (data.stack) {
                             xml += '\t' + this.escape(data.stack) + '\n';
                         }
-                        if(data.source){
-                             xml += '\t' + this.escape(data.source) + '\n';
+                        if (data.source){
+                            xml += '\t' + this.escape(data.source) + '\n';
                         }
                         xml += '\t\t\t</' + data.type + '>\n';
                     }, this);
@@ -205,11 +205,13 @@ module.exports = function (grunt) {
                 + ' name="' + this.escape(this.classname) + '"'
                 + ' errors="1"'
                 + ' failures="0"'
-                + ' tests="1">\n';
+                + ' tests="1"'
+                + ' time="0.01">\n'
             xml += '\t\t<testcase'
                 + ' classname="' + this.escape(this.classname) + '"'
                 + ' name="main"'
-                + ' assertions="1">\n';
+                + ' assertions="1"'
+                + ' time="0.01">\n';
             xml += '\t\t\t<error type="timeout" message="Test timed out, '
                 + 'possibly due to a missing QUnit.start() call."></error>\n';
             xml += "\t\t</testcase>\n";

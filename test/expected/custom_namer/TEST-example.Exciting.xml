@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="example.Exciting" errors="0" failures="2" tests="2">
-		<testcase classname="example.Exciting" name="a failing test example" assertions="1">
+	<testsuite name="example.Exciting" errors="0" failures="2" tests="2" time="0.01">
+		<testcase classname="example.Exciting" name="a failing test example" assertions="1" time="0.01">
 			<failure type="failed" message="We expect to fail">
 			</failure>
 		</testcase>
-		<testcase classname="example.Exciting" name="global failure" assertions="1">
+		<testcase classname="example.Exciting" name="global failure" assertions="1" time="0.01">
 			<failure type="failed" message="ReferenceError: Can't find variable: y">
 			</failure>
 		</testcase>
 	</testsuite>
-	<testsuite name="example.Exciting" errors="0" failures="1" tests="3">
-		<testcase classname="example.Exciting" name="Module 19: A failing test that checks XML encoding" assertions="1">
+	<testsuite name="example.Exciting" errors="0" failures="1" tests="3" time="0.01">
+		<testcase classname="example.Exciting" name="Module 19: A failing test that checks XML encoding" assertions="1" time="0.01">
 			<failure type="failed" message="A quote: &quot;We expect to fail&quot;">
 			</failure>
 		</testcase>
-		<testcase classname="example.Exciting" name="Module 19: a basic test example" assertions="1">
+		<testcase classname="example.Exciting" name="Module 19: a basic test example" assertions="1" time="0.01">
 		</testcase>
-		<testcase classname="example.Exciting" name="Module 19: another basic test example" assertions="1">
+		<testcase classname="example.Exciting" name="Module 19: another basic test example" assertions="1" time="0.01">
 		</testcase>
 	</testsuite>
-	<testsuite name="example.Exciting" errors="1" failures="0" tests="1">
-		<testcase classname="example.Exciting" name="Module 20: A failing test that should stack track" assertions="1">
+	<testsuite name="example.Exciting" errors="1" failures="0" tests="1" time="0.01">
+		<testcase classname="example.Exciting" name="Module 20: A failing test that should stack track" assertions="1" time="0.01">
 			<error type="failed" message="Died on test #1: Can't find variable: y">
-	at LOCALPATH/test/fixtures/vendor/qunit-1.12.0.js:425
-    at LOCALPATH/test/fixtures/common/exciting.js:3
+	ReferenceError: Can't find variable: y
 			</error>
 		</testcase>
 	</testsuite>
