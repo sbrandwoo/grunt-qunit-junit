@@ -12,13 +12,15 @@ module.exports = function (grunt) {
 
     var _ = require('underscore'),
         path = require('path'),
+        XmlReporter = require('../lib/XmlReporter'),
 
-        XmlReporter,
+        Runner,
         current;
 
-    XmlReporter = function (options) {
+    Runner = function (options) {
         this.options = options;
 
+        this.reporter = new XmlReporter();
         this.filename = "";
         this.modules = [];
         this.tests = [];
@@ -41,7 +43,7 @@ module.exports = function (grunt) {
             return [a[0], _.bind(a[1], this)];
         }, this);
     };
-    _.extend(XmlReporter.prototype, {
+    _.extend(Runner.prototype, {
 
         /**
          * Attach event listeners for qunit events.
@@ -61,13 +63,6 @@ module.exports = function (grunt) {
             _.each(this.bindTargets, function (a) {
                 emitter.off(a[0], a[1]);
             });
-        },
-
-        escape: function (value) {
-            return value.replace(/&/g, '&amp;')
-                       .replace(/</g, '&lt;')
-                       .replace(/>/g, '&gt;')
-                       .replace(/"/g, '&quot;');
         },
 
         handleSpawn: function (url) {
@@ -150,46 +145,26 @@ module.exports = function (grunt) {
         },
 
         handleDone: function (failed, passed, total, runtime) {
-
-            var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>\n',
-                filePath = path.join(this.options.dest, this.filename);
+            var filePath = path.join(this.options.dest, this.filename),
+                report;
 
             if (this.tests.length) {
                 // Must have been no modules
                 this.handleModuleDone('main', failed, passed, total);
             }
 
-            _.each(this.modules, function (module) {
-                xml += '\t<testsuite'
-                    + ' name="' + this.escape(this.classname) + '"'
-                    + ' errors="' + module.errored + '"'
-                    + ' failures="' + module.failed + '"'
-                    + ' tests="' + module.tests.length + '" time="0.01">\n';
-                _.each(module.tests, function (test) {
-                    xml += '\t\t<testcase'
-                        + ' classname="' + this.escape(this.classname) + '"'
-                        + ' name="' + this.escape(
-                            (module.name ? (module.name + ": ") : "") + test.name) + '"'
-                        + ' assertions="' + test.total + '" time="0.01">\n';
-                    _.each(test.logs, function (data) {
-                        xml += '\t\t\t<' + data.type + ' type="failed" message="'
-                                + this.escape(data.message) + '">\n';
-                        if (data.stack) {
-                            xml += '\t' + this.escape(data.stack) + '\n';
-                        }
-                        if (data.source){
-                            xml += '\t' + this.escape(data.source) + '\n';
-                        }
-                        xml += '\t\t\t</' + data.type + '>\n';
-                    }, this);
-                    xml += "\t\t</testcase>\n";
-                }, this);
-                xml += "\t</testsuite>\n";
-            }, this);
-            xml += "</testsuites>\n";
+            report = this.reporter.generateReport({
+                failed: failed,
+                passed: passed,
+                total: total,
+                modules: this.modules,
+                classname: this.classname,
+                errored: this.errored,
+                tests: this.tests
+            });
 
             grunt.log.debug("Writing results to " + filePath);
-            grunt.file.write(filePath, xml);
+            grunt.file.write(filePath, report);
 
             this.filename = null;
             this.classname = null;
@@ -197,29 +172,15 @@ module.exports = function (grunt) {
         },
 
         handleTimeout: function () {
+            var filePath = path.join(this.options.dest, this.filename),
+                report;
 
-            var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>\n',
-                filePath = path.join(this.options.dest, this.filename);
-
-            xml += '\t<testsuite'
-                + ' name="' + this.escape(this.classname) + '"'
-                + ' errors="1"'
-                + ' failures="0"'
-                + ' tests="1"'
-                + ' time="0.01">\n';
-            xml += '\t\t<testcase'
-                + ' classname="' + this.escape(this.classname) + '"'
-                + ' name="main"'
-                + ' assertions="1"'
-                + ' time="0.01">\n';
-            xml += '\t\t\t<error type="timeout" message="Test timed out, '
-                + 'possibly due to a missing QUnit.start() call."></error>\n';
-            xml += "\t\t</testcase>\n";
-            xml += "\t</testsuite>\n";
-            xml += "</testsuites>\n";
+            report = this.reporter.generateTimeout({
+                classname: this.classname
+            });
 
             grunt.log.debug("Writing timeout report to " + filePath);
-            grunt.file.write(filePath, xml);
+            grunt.file.write(filePath, report);
         }
     });
 
@@ -237,7 +198,7 @@ module.exports = function (grunt) {
             grunt.log.ok("Detaching existing reporter");
             current.detach(grunt.event);
         }
-        current = new XmlReporter(options);
+        current = new Runner(options);
         current.attach(grunt.event);
         grunt.log.ok("XML reports will be written to " + options.dest);
     });
