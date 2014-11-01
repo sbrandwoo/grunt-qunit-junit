@@ -10,7 +10,7 @@
 			</failure>
 		</testcase>
 	</testsuite>
-	<testsuite name="Exciting" errors="0" failures="1" tests="3" time="0.01">
+	<testsuite name="Exciting" errors="0" failures="1" tests="4" time="0.53">
 		<testcase classname="Exciting" name="Module 19: A failing test that checks XML encoding" assertions="1" time="0.01">
 			<failure type="failed" message="A quote: &quot;We expect to fail&quot;">
 			</failure>
@@ -18,6 +18,8 @@
 		<testcase classname="Exciting" name="Module 19: a basic test example" assertions="1" time="0.01">
 		</testcase>
 		<testcase classname="Exciting" name="Module 19: another basic test example" assertions="1" time="0.01">
+		</testcase>
+		<testcase classname="Exciting" name="Module 19: an async test example" assertions="1" time="1.50">
 		</testcase>
 	</testsuite>
 	<testsuite name="Exciting" errors="1" failures="0" tests="1" time="0.01">
