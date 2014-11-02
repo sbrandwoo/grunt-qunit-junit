@@ -19,7 +19,7 @@
 		</testcase>
 		<testcase classname="Exciting" name="Module 19: another basic test example" assertions="1" time="0.01">
 		</testcase>
-		<testcase classname="Exciting" name="Module 19: an async test example" assertions="1" time="1.50">
+		<testcase classname="Exciting" name="Module 19: an async test example" assertions="1" time="0.50">
 		</testcase>
 	</testsuite>
 	<testsuite name="Exciting" errors="1" failures="0" tests="1" time="0.01">

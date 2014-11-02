@@ -161,7 +161,8 @@ module.exports = function (grunt) {
                     diff = (parseFloat(expected) - parseFloat(actual));
 
                 if (Math.abs(diff) > tolerance) {
-                    errors.push("Actual time of " + name + " in " + filename + " did fall within expected tolerance.");
+                    errors.push("Actual time of " + name + " in " + filename + " differed by "
+                        + diff + ", did not fall within expected tolerance.");
                 }
             });
 
