@@ -24,6 +24,14 @@ setTimeout(function () {
         equal(value, "hello", "We expect value to be hello" );
     });
 
+    asyncTest('an async test example', function() {
+        var value = "world";
+        setTimeout(function() {
+            equal(value, "world", "We expect value to be world");
+            start();
+        }, 500);
+    });
+
     module("Module 20");
 
     // This should have a stack trace!

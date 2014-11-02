@@ -112,13 +112,14 @@ module.exports = function (grunt) {
             }
         },
 
-        handleTestDone: function (name, failed, passed, total) {
+        handleTestDone: function (name, failed, passed, total, duration) {
             this.tests.push({
                 name: name,
                 errored: this.currentErrors,
                 failed: failed - this.currentErrors,
                 passed: passed,
                 total: total,
+                duration: duration,
                 logs: this.currentLogs
             });
 

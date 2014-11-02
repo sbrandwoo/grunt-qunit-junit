@@ -101,6 +101,18 @@ module.exports = function (grunt) {
             expectedDir = settings.expected,
             expectedFiles = [];
 
+        function extractTimes(str) {
+            var regex = /[^s]name="([^"]+)"(.+)time="([^"]+)"/g,
+                timesByName = {},
+                matches;
+
+            while ((matches = regex.exec(str)) !== null) {
+                timesByName[matches[1]] = matches[3];
+            }
+
+            return timesByName;
+        }
+
         // Check for the expected
         grunt.file.recurse(expectedDir,
                 function (abspath, rootdir, subdir, filename) {
@@ -115,10 +127,16 @@ module.exports = function (grunt) {
             }
 
             var actual = grunt.file.read(actualPath),
-                expected = grunt.file.read(abspath);
+                expected = grunt.file.read(abspath),
+                expectedTimes = extractTimes(actual),
+                actualTimes = extractTimes(expected);
 
             // Remove parts of the stack traces that contain system specific paths
             actual = actual.replace(/[\t ]+(at |file).*\n/g, '');
+
+            // Remove time and compare it separately.
+            actual = actual.replace(/ time=".+"/g, '');
+            expected = expected.replace(/ time=".+"/g, '');
 
             if (actual !== expected) {
                 var diff = JsDiff.diffLines(expected, actual),
@@ -135,6 +153,17 @@ module.exports = function (grunt) {
                 errors.push(s);
                 return;
             }
+
+            Object.keys(expectedTimes).forEach(function (name) {
+                var expected = expectedTimes[name],
+                    actual = actualTimes[name],
+                    tolerance = 0.1,
+                    diff = (parseFloat(expected) - parseFloat(actual));
+
+                if (Math.abs(diff) > tolerance) {
+                    errors.push("Actual time of " + name + " in " + filename + " did fall within expected tolerance.");
+                }
+            });
 
             grunt.log.ok(actualPath + " was as expected");
         });

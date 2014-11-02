@@ -96,12 +96,12 @@ The following report is an example of a test class that was composed of 3 tests,
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="example.package.TestClass" errors="1" failures="1" tests="3">
-    <testcase classname="example.package.TestClass" name="My module: First test" assertions="1">
+  <testsuite name="example.package.TestClass" errors="1" failures="1" tests="3" time="0.04">
+    <testcase classname="example.package.TestClass" name="My module: First test" assertions="1" time="0.01">
     </testcase>
-    <testcase classname="example.package.TestClass" name="My module: Second test" assertions="2">
+    <testcase classname="example.package.TestClass" name="My module: Second test" assertions="2" time="0.02">
     </testcase>
-    <testcase classname="example.package.TestClass" name="My module: Third test" assertions="2">
+    <testcase classname="example.package.TestClass" name="My module: Third test" assertions="2" time="0.01">
       <error type="failed" message="Died on test #1: Can't find variable: other">
     at http://localhost:8000/vendor/qunit-1.12.0.js:425
     at http://localhost:8000/test/example/package/TestClass.test.js:29
