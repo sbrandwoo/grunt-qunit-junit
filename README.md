@@ -1,4 +1,4 @@
-# grunt-qunit-junit
+# grunt-qunit-junit [![Build Status](https://travis-ci.org/sbrandwoo/grunt-qunit-junit.svg?branch=master)](https://travis-ci.org/sbrandwoo/grunt-qunit-junit)
 
 > JUnit compatible XML reporter for QUnit
 
