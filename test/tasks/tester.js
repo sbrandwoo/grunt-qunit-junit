@@ -35,23 +35,31 @@ module.exports = function (grunt) {
                 actual: '_build/custom_dest',
                 expected: 'test/expected/defaults'
             },
-            custom_namer: {
+            custom_file_namer: {
                 options: {
-                    dest: '_build/custom_namer',
-                    namer: function (url) {
+                    dest: '_build/custom_file_namer',
+                    fileNamer: function (url) {
+                        var match = url.match(/fixtures\/many_html\/(.*).html$/);
+                        return match[1].replace(/\//g, '.');
+                    },
+                    classNamer: function (url) {
                         var match = url.match(/fixtures\/many_html\/(.*).html$/);
                         return match[1].replace(/\//g, '.');
                     }
                 },
                 files: ['test/fixtures/many_html/**/*.html'],
 
-                actual: '_build/custom_namer',
-                expected: 'test/expected/custom_namer'
+                actual: '_build/custom_file_namer',
+                expected: 'test/expected/custom_file_namer'
             },
             single_html: {
                 options: {
                     dest: '_build/single_html',
-                    namer: function (url) {
+                    fileNamer: function (url) {
+                        var match = url.match(/test=(.*)$/);
+                        return match[1].replace(/\//g, '.');
+                    },
+                    classNamer: function (url) {
                         var match = url.match(/test=(.*)$/);
                         return match[1].replace(/\//g, '.');
                     }

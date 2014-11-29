@@ -20,8 +20,8 @@ module.exports = function (grunt) {
     Runner = function (options) {
         this.options = options;
 
-        this.reporter = new XmlReporter();
-        this.filename = "";
+        this.reporter = new XmlReporter(options);
+        this.url = "";
         this.modules = [];
         this.tests = [];
         this.currentLogs = [];
@@ -66,8 +66,7 @@ module.exports = function (grunt) {
         },
 
         handleSpawn: function (url) {
-            this.classname = this.options.namer.call(null, url);
-            this.filename = 'TEST-' + this.classname + '.xml';
+            this.url = url;
         },
 
         handleBegin: function () {
@@ -146,7 +145,8 @@ module.exports = function (grunt) {
         },
 
         handleDone: function (failed, passed, total, runtime) {
-            var filePath = path.join(this.options.dest, this.filename),
+            var filename = 'TEST-' + this.options.fileNamer.call(null, this.url) + '.xml',
+                filePath = path.join(this.options.dest, filename),
                 report;
 
             if (this.tests.length) {
@@ -155,11 +155,11 @@ module.exports = function (grunt) {
             }
 
             report = this.reporter.generateReport({
+                url: this.url,
                 failed: failed,
                 passed: passed,
                 total: total,
                 modules: this.modules,
-                classname: this.classname,
                 errored: this.errored,
                 tests: this.tests
             });
@@ -167,17 +167,17 @@ module.exports = function (grunt) {
             grunt.log.debug("Writing results to " + filePath);
             grunt.file.write(filePath, report);
 
-            this.filename = null;
-            this.classname = null;
+            this.url = null;
             this.modules = [];
         },
 
         handleTimeout: function () {
-            var filePath = path.join(this.options.dest, this.filename),
+            var filename = 'TEST-' + this.options.fileNamer.call(null, this.url) + '.xml',
+                filePath = path.join(this.options.dest, filename),
                 report;
 
             report = this.reporter.generateTimeout({
-                classname: this.classname
+                url: this.url
             });
 
             grunt.log.debug("Writing timeout report to " + filePath);
@@ -190,7 +190,10 @@ module.exports = function (grunt) {
             'Log JUnit style XML reports for QUnit tests', function () {
         var options = this.options({
                 dest: '_build/test-reports',
-                namer: function (url) {
+                fileNamer: function (url) {
+                    return path.basename(url).replace(/\.html$/, '');
+                },
+                classNamer: function (url, moduleName) {
                     return path.basename(url).replace(/\.html$/, '');
                 }
             });

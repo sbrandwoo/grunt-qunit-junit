@@ -54,28 +54,17 @@ Default value: `'_build/test-reports'`
 
 Specify where the XML reports should be saved to.
 
-#### options.namer
+#### options.fileNamer
 Type: `Function`
-Default value: `path.basename(url).replace(/\.html$/, '')`
+Default value: `function (url) { return path.basename(url).replace(/\.html$/, ''); }`
 
-Specify a function that converts test URLs into dot-separated classnames. The classname for each test is used to build the report's filename and is placed inside the XML reports themselves.
+Specify a function that converts test URLs into destination filenames.  Note that filenames are automatically prefixed with 'TEST-' and given a '.xml' extension.
 
-The resulting values should represent full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
+#### options.classNamer
+Type `Function`
+Default value: `function (url, moduleName) { return moduleName.replace(/\\/g, '.'/).replace(/\s+/g, '_'); }`
 
-The default implementation takes the final part of the URL and strips `.html` from it. If you have nested folder structures then I suggest you override this option.
-
-For example, if you have test URLs of the form `http://localhost:8000/test/runner.html?test=example/Adder`, then you could use the following:
-
-```js
-qunit_junit: {
-    options: {
-        namer: function (url) {
-            var match = url.match(/test=(.*)$/);
-            return match[1].replace(/\//g, '.');
-        }
-    }
-}
-```
+Specify a function that converts the supplied url and moduleName into the value used in the report's 'classname' parameter.  In order to be compliant, the function should ensure that the resuling value represents full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
 
 ### Usage Examples
 
