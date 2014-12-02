@@ -133,3 +133,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 * 0.1.0 is available for general use.
 * 0.1.1 added time attribute to output with dummy value, to aid compatibility
+* 0.2.0 updated `grunt-contrib-qunit` to 0.5.2 to report actual test durations.
