@@ -195,6 +195,9 @@ module.exports = function (grunt) {
                 },
                 classNamer: function (moduleName, url) {
                     return moduleName.replace(/[\\|\/]/g, '.').replace(/\s+/g, '_');
+                },
+                testNamer: function (testName, moduleName, url) {
+                    return testName;
                 }
             });
 

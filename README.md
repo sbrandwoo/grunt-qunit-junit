@@ -64,7 +64,13 @@ Specify a function that converts test URLs into destination filenames.  Note tha
 Type `Function`
 Default value: `function (moduleName, url) { return moduleName.replace(/[\\|\/]/g, '.').replace(/\s+/g, '_'); }`
 
-Specify a function that converts the supplied url and moduleName into the value used in the report's 'classname' parameter.  Note that if the test did not belong to a module, the string `'global'` will be passed.  In order to be compliant, the function should ensure that the resulting value represents full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
+Specify a function that converts the supplied module name and URL into the value used in the report's 'classname' attribute.  Note that if the test did not belong to a module, the string `'global'` will be passed.  In order to be compliant, the function should ensure that the resulting value represents full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
+
+#### options.testNamer
+Type: `Function`
+Default value: `function (testName, moduleName, url) { return testName; }`
+
+Specify a function that converts the supplied test name, module name and URL into the value used in the report's 'name' attribute. Note that if the test did not belong to a module, the string `'global'` will be passed.
 
 ### Usage Examples
 
@@ -80,17 +86,17 @@ If you call the `qunit_junit` task again, then the existing reporter will be det
 
 ## Example reports
 
-The following report is an example of a test class that was composed of 3 tests, one of which had a failure. The `classname` attribute is built from the path and name of the test file, and the QUnit module names are added to the `name` attribute.
+The following report is an example of a test class that was composed of 3 tests, one of which had a failure.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
   <testsuite name="example.package.TestClass" errors="1" failures="1" tests="3" time="0.04">
-    <testcase classname="example.package.TestClass" name="My module: First test" assertions="1" time="0.01">
+    <testcase classname="example.package.TestClass" name="First test" assertions="1" time="0.01">
     </testcase>
-    <testcase classname="example.package.TestClass" name="My module: Second test" assertions="2" time="0.02">
+    <testcase classname="example.package.TestClass" name="Second test" assertions="2" time="0.02">
     </testcase>
-    <testcase classname="example.package.TestClass" name="My module: Third test" assertions="2" time="0.01">
+    <testcase classname="example.package.TestClass" name="Third test" assertions="2" time="0.01">
       <error type="failed" message="Died on test #1: Can't find variable: other">
     at http://localhost:8000/vendor/qunit-1.12.0.js:425
     at http://localhost:8000/test/example/package/TestClass.test.js:29

@@ -35,16 +35,19 @@ module.exports = function (grunt) {
                 actual: '_build/custom_dest',
                 expected: 'test/expected/defaults'
             },
-            custom_file_namer: {
+            custom_namers: {
                 options: {
                     dest: '_build/custom_file_namer',
                     fileNamer: function (url) {
                         var match = url.match(/fixtures\/many_html\/(.*).html$/);
                         return match[1].replace(/\//g, '.');
                     },
-                    classNamer: function (module, url) {
+                    classNamer: function (moduleName, url) {
                         var match = url.match(/fixtures\/many_html\/(.*).html$/);
                         return match[1].replace(/\//g, '.');
+                    },
+                    testNamer: function (testName, moduleName, url) {
+                        return (moduleName !== 'global' ? (moduleName + ": ") : "") + testName;
                     }
                 },
                 files: ['test/fixtures/many_html/**/*.html'],
