@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="Exciting" errors="0" failures="2" tests="2" time="0.01">
-		<testcase classname="Exciting" name="a failing test example" assertions="1" time="0.01">
+	<testsuite name="global" errors="0" failures="2" tests="2" time="0.01">
+		<testcase classname="global" name="a failing test example" assertions="1" time="0.01">
 			<failure type="failed" message="We expect to fail">
 			</failure>
 		</testcase>
-		<testcase classname="Exciting" name="global failure" assertions="1" time="0.01">
+		<testcase classname="global" name="global failure" assertions="1" time="0.01">
 			<failure type="failed" message="ReferenceError: Can't find variable: y">
 			</failure>
 		</testcase>
 	</testsuite>
-	<testsuite name="Exciting" errors="0" failures="1" tests="4" time="0.53">
-		<testcase classname="Exciting" name="Module 19: A failing test that checks XML encoding" assertions="1" time="0.01">
+	<testsuite name="Module_19" errors="0" failures="1" tests="4" time="0.53">
+		<testcase classname="Module_19" name="Module 19: A failing test that checks XML encoding" assertions="1" time="0.01">
 			<failure type="failed" message="A quote: &quot;We expect to fail&quot;">
 			</failure>
 		</testcase>
-		<testcase classname="Exciting" name="Module 19: a basic test example" assertions="1" time="0.01">
+		<testcase classname="Module_19" name="Module 19: a basic test example" assertions="1" time="0.01">
 		</testcase>
-		<testcase classname="Exciting" name="Module 19: another basic test example" assertions="1" time="0.01">
+		<testcase classname="Module_19" name="Module 19: another basic test example" assertions="1" time="0.01">
 		</testcase>
-		<testcase classname="Exciting" name="Module 19: an async test example" assertions="1" time="0.50">
+		<testcase classname="Module_19" name="Module 19: an async test example" assertions="1" time="0.50">
 		</testcase>
 	</testsuite>
-	<testsuite name="Exciting" errors="1" failures="0" tests="1" time="0.01">
-		<testcase classname="Exciting" name="Module 20: A failing test that should stack track" assertions="1" time="0.01">
+	<testsuite name="Module_20.Stacks" errors="1" failures="0" tests="1" time="0.01">
+		<testcase classname="Module_20.Stacks" name="Module 20/Stacks: A failing test that should stack track" assertions="1" time="0.01">
 			<error type="failed" message="Died on test #1: Can't find variable: y">
 	ReferenceError: Can't find variable: y
 			</error>

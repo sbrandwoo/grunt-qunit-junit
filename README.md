@@ -62,9 +62,9 @@ Specify a function that converts test URLs into destination filenames.  Note tha
 
 #### options.classNamer
 Type `Function`
-Default value: `function (url, moduleName) { return moduleName.replace(/\\/g, '.'/).replace(/\s+/g, '_'); }`
+Default value: `function (moduleName, url) { return moduleName.replace(/[\\|\/]/g, '.').replace(/\s+/g, '_'); }`
 
-Specify a function that converts the supplied url and moduleName into the value used in the report's 'classname' parameter.  In order to be compliant, the function should ensure that the resuling value represents full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
+Specify a function that converts the supplied url and moduleName into the value used in the report's 'classname' parameter.  Note that if the test did not belong to a module, the string `'global'` will be passed.  In order to be compliant, the function should ensure that the resulting value represents full classpaths as you might see in Java, such as `my.example.package.someFile` or `com.example.coolthings.Sorter`; the main restriction is that folders or packages must be separated by dots. These enable tools such as Jenkins to group the tests and provide an interface to drill down into the results.
 
 ### Usage Examples
 

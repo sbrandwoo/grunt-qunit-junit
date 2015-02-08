@@ -193,8 +193,8 @@ module.exports = function (grunt) {
                 fileNamer: function (url) {
                     return path.basename(url).replace(/\.html$/, '');
                 },
-                classNamer: function (url, moduleName) {
-                    return path.basename(url).replace(/\.html$/, '');
+                classNamer: function (moduleName, url) {
+                    return moduleName.replace(/[\\|\/]/g, '.').replace(/\s+/g, '_');
                 }
             });
 

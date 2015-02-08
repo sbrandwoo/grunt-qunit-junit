@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                         var match = url.match(/fixtures\/many_html\/(.*).html$/);
                         return match[1].replace(/\//g, '.');
                     },
-                    classNamer: function (url) {
+                    classNamer: function (module, url) {
                         var match = url.match(/fixtures\/many_html\/(.*).html$/);
                         return match[1].replace(/\//g, '.');
                     }
@@ -56,10 +56,6 @@ module.exports = function (grunt) {
                 options: {
                     dest: '_build/single_html',
                     fileNamer: function (url) {
-                        var match = url.match(/test=(.*)$/);
-                        return match[1].replace(/\//g, '.');
-                    },
-                    classNamer: function (url) {
                         var match = url.match(/test=(.*)$/);
                         return match[1].replace(/\//g, '.');
                     }

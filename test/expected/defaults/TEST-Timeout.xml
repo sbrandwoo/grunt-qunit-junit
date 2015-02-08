@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="Timeout" errors="1" failures="0" tests="1" time="0.01">
-		<testcase classname="Timeout" name="main" assertions="1" time="0.01">
+	<testsuite name="global" errors="1" failures="0" tests="1" time="0.01">
+		<testcase classname="global" name="main" assertions="1" time="0.01">
 			<error type="timeout" message="Test timed out, possibly due to a missing QUnit.start() call."></error>
 		</testcase>
 	</testsuite>
