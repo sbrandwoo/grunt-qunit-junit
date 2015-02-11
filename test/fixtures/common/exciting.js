@@ -32,7 +32,8 @@ setTimeout(function () {
         }, 500);
     });
 
-    module("Module 20");
+    // The / should be replaced with a . with the default classNamer.
+    module("Module 20/Stacks");
 
     // This should have a stack trace!
     test("A failing test that should stack track", function() {

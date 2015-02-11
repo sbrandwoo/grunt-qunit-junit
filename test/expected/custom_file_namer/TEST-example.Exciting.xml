@@ -23,7 +23,7 @@
 		</testcase>
 	</testsuite>
 	<testsuite name="example.Exciting" errors="1" failures="0" tests="1" time="0.01">
-		<testcase classname="example.Exciting" name="Module 20: A failing test that should stack track" assertions="1" time="0.01">
+		<testcase classname="example.Exciting" name="Module 20/Stacks: A failing test that should stack track" assertions="1" time="0.01">
 			<error type="failed" message="Died on test #1: Can't find variable: y">
 	ReferenceError: Can't find variable: y
 			</error>

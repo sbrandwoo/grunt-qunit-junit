@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="Mixed" errors="0" failures="2" tests="3" time="0.03">
-		<testcase classname="Mixed" name="Module 19: a basic test example" assertions="1" time="0.01">
+	<testsuite name="Module_19" errors="0" failures="2" tests="3" time="0.03">
+		<testcase classname="Module_19" name="a basic test example" assertions="1" time="0.01">
 		</testcase>
-		<testcase classname="Mixed" name="Module 19: a failing test example" assertions="1" time="0.01">
+		<testcase classname="Module_19" name="a failing test example" assertions="1" time="0.01">
 			<failure type="failed" message="We expect to fail">
 			</failure>
 		</testcase>
-		<testcase classname="Mixed" name="Module 19: another failing test example" assertions="1" time="0.01">
+		<testcase classname="Module_19" name="another failing test example" assertions="1" time="0.01">
 			<failure type="failed" message="Test failed">
 			</failure>
 		</testcase>
