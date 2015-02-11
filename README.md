@@ -10,8 +10,6 @@ This plugin only works with grunt 0.4.x. If you are using 0.3.x, then I recommen
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
 
-**WARNING**: This plugin is only released in beta form! It should work pretty well though, so please give it a go and pass any issues you find back to me. I'd also be interested to hear how you use QUnit in you project and if there are any helpful features I can add to this plugin.
-
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
 
 ```bash
@@ -126,6 +124,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 0.1.0 is available for general use.
-* 0.1.1 added time attribute to output with dummy value, to aid compatibility
+* 0.3.0 added ability to provide custom url, module and test namers.
 * 0.2.0 updated `grunt-contrib-qunit` to 0.5.2 to report actual test durations.
+* 0.1.1 added time attribute to output with dummy value, to aid compatibility
+* 0.1.0 is available for general use.
+
