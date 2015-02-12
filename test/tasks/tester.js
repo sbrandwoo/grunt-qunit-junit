@@ -92,7 +92,7 @@ module.exports = function (grunt) {
             qunitConfig.options.urls = settings.urls;
         }
         grunt.log.ok("Performing setup for " + name);
-        grunt.config('qunit_junit.options', settings.options);
+        grunt.config('qunit_junit.all.options', settings.options);
         grunt.config.set('qunit.all', qunitConfig);
     };
 
@@ -220,7 +220,7 @@ module.exports = function (grunt) {
             grunt.config('harness.teardown_' + name,
                     _.bind(teardownSuite, null, name, settings, errors[name]));
 
-            grunt.task.run('harness:setup_' + name, 'qunit_junit', 'qunit:all',
+            grunt.task.run('harness:setup_' + name, 'qunit_junit:all', 'qunit:all',
                 'harness:teardown_' + name);
         });
 
