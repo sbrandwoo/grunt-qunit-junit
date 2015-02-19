@@ -186,7 +186,7 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('qunit_junit',
+    grunt.registerMultiTask('qunit_junit',
             'Log JUnit style XML reports for QUnit tests', function () {
         var options = this.options({
                 dest: '_build/test-reports',
