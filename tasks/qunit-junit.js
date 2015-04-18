@@ -191,7 +191,7 @@ module.exports = function (grunt) {
         var options = this.options({
                 dest: '_build/test-reports',
                 fileNamer: function (url) {
-                    return path.basename(url).replace(/\.html$/, '');
+                    return path.basename(url).replace(/\.html(.*)$/, '');
                 },
                 classNamer: function (moduleName, url) {
                     return moduleName.replace(/[\\|\/]/g, '.').replace(/\s+/g, '_');

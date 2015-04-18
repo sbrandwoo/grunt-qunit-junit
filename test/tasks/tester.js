@@ -70,6 +70,15 @@ module.exports = function (grunt) {
 
                 actual: '_build/single_html',
                 expected: 'test/expected/single_html'
+            },
+            default_filenamer_ignores_querystring: {
+                options: {
+                    dest: '_build/default_filenamer_ignores_querystring'
+                },
+                urls: [ 'http://localhost:8017/fixtures/single_html/'
+                        + 'testrunner.html?test=success&noGlobals=true' ],
+                actual: '_build/default_filenamer_ignores_querystring',
+                expected: 'test/expected/default_filenamer_ignores_querystring'
             }
         };
 

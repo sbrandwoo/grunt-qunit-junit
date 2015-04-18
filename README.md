@@ -54,9 +54,9 @@ Specify where the XML reports should be saved to.
 
 #### options.fileNamer
 Type: `Function`
-Default value: `function (url) { return path.basename(url).replace(/\.html$/, ''); }`
+Default value: `function (url) { return path.basename(url).replace(/\.html(.*)$/, ''); }`
 
-Specify a function that converts test URLs into destination filenames.  Note that filenames are automatically prefixed with 'TEST-' and given a '.xml' extension.
+Specify a function that converts test URLs into destination filenames.  Note that filenames are automatically prefixed with 'TEST-' and given a '.xml' extension.  The default implementation uses the name of the HTML test-runner, discarding the query string.
 
 #### options.classNamer
 Type `Function`
