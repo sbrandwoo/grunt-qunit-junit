@@ -124,6 +124,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 0.3.1 fixed #20 - default filenamer regexp now drops everything after the .html file extension
 * 0.3.0 added ability to provide custom url, module and test namers.
 * 0.2.0 updated `grunt-contrib-qunit` to 0.5.2 to report actual test durations.
 * 0.1.1 added time attribute to output with dummy value, to aid compatibility
